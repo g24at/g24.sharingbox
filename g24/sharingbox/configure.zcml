@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="g24.sharingbox">
+
+  <genericsetup:registerProfile
+        name="default"
+        title="g24.sharingbox: default"
+        directory="profiles/default"
+        description="g24 sharingbox default profile."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+</configure>

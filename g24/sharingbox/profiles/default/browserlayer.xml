@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layers>
+ <layer
+     name="g24.sharingbox"
+     interface="g24.sharingbox.interfaces.IG24Sharingbox"
+     />
+</layers>
