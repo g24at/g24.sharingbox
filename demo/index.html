@@ -44,13 +44,17 @@
       </div>
 
       <fieldset id="sharingbox-fieldset-event">
-        <div id="sharingbox-widget-date-start">
+        <div id="sharingbox-widget-start">
           <label for="sharingbox-date-start">Start Date</label>
-          <input type="date" id="sharingbox-date-start" name="sharingbox-date-start" value="" placeholder="YYYY-MM-DD HH:MM"/>
+          <input type="date" id="sharingbox-date-start" name="sharingbox-date-start" value="" placeholder="YYYY-MM-DD"/>
+          <label for="sharingbox-time-start">Start Time</label>
+          <input id="sharingbox-time-start" name="sharingbox-time-start" value="" placeholder="HH:MM"/>
         </div>
         <div id="sharingbox-widget-date-end">
           <label for="sharingbox-date-end">End Date</label>
-          <input type="date" name="sharingbox-date-end" id="sharingbox-date-end" value="" placeholder="YYYY-MM-DD HH:MM"/>
+          <input type="date" name="sharingbox-date-end" id="sharingbox-date-end" value="" placeholder="YYYY-MM-DD"/>
+          <label for="sharingbox-time-end">End Time</label>
+          <input id="sharingbox-time-end" name="sharingbox-time-end" value="" placeholder="HH:MM"/>
         </div>
         <div id="sharingbox-widget-whole-day">
           <label for="sharingbox-whole-day">Whole Day</label>
@@ -139,7 +143,7 @@
           $('#sharingbox-fieldset-title').toggle();
         });
         $('#sharingbox-fieldset-event').hide();
-        $(":date").dateinput();
+        $(":date").dateinput({format: 'yyyy-mm-dd'});
         $('#sharingbox-features-event').change(function(event){
           $('#sharingbox-fieldset-event').toggle();
         });
@@ -148,7 +152,6 @@
           $('#sharingbox-fieldset-location').toggle();
         });
        
-
         
       });
 
