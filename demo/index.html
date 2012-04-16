@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>g24.at sharingbox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="jquery.textchange.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--link rel="stylesheet" href="Aloha-Editor/src/css/aloha.css" type="text/css"-->
+    <!--script src="Aloha-Editor/src/lib/aloha.js"
+      data-aloha-plugins="common/format,common/highlighteditables,common/link"></script-->
+  </head>
+
+  <body>
+
+    <form id="sharingbox" action="" method="get" accept-charset="utf-8">
+      <div>
+        <label for="sharingbox-title">Titel deines Beitrags</label>
+        <input type="text" name="sharingbox-title" id="sharingbox-title" value="" placeholder="share some content with us!" />
+      </div>
+      <textarea name="sharingbox-text" id="sharingbox-text" rows="8" cols="40"><h1>lemme see</h1><p>nothing special</p></textarea>
+
+      <div id="sharingbox-facade">
+        <button id="sharingbox-facade-bold">Bold</button>
+        <button id="sharingbox-facade-italic">Italic</button>
+        <div id="sharingbox-facade-content" contenteditable="true">
+          <h1>test contenteditable</h1>
+          <p>somthin</p>
+        </div>
+      </div>
+    </form>
+
+    <script type="text/javascript">
+      function urlify(text) {
+        /* based on:
+           http://stackoverflow.com/questions/1500260/detect-urls-in-text-with-javascript
+           http://www.codinghorror.com/blog/2008/10/the-problem-with-urls.html
+
+           The following RegExp matches only URLs after an whitespace or
+           newline character or at the beginning of the text. It doesn't match
+           any URLs with preceding characters like: src="http://test nor URLs
+           in parenthesis (http://...)
+
+           ^(https?://[^\s]+)|[\s\n](https?://[^\s]+)
+        */
+        var urlRegex = /(https?:\/\/[^\s"'<>]+)/g;
+        return text.replace(urlRegex, function(url) {
+          var urlpart = url.substr(-4);
+          if (urlpart === '.png' | urlpart === '.gif' | urlpart === '.jpg') {
+            return '<img src="' + url + '"/>';
+          } else {
+            return '<a href="' + url + '">' + url + '</a>';
+          }
+        });
+      }
+
+      $(document).ready(function() {
+        $('#sharingbox-facade-content').html($('#sharingbox-text').val());
+        $('#sharingbox-text').hide();
+        $('#sharingbox-facade-bold').click(function(event){
+          event.preventDefault();
+          document.execCommand('StyleWithCSS', false, false);
+          document.execCommand('bold',false,null);
+        });
+        $('#sharingbox-facade-italic').click(function(event){
+          event.preventDefault();
+          document.execCommand('StyleWithCSS', false, false);
+          document.execCommand('italic',false,null);
+        });
+
+        var timeout;
+        $('#sharingbox-facade-content').bind('textchange', function () {
+          clearTimeout(timeout);
+          var self = this;
+          timeout = setTimeout(function () {
+            $('#sharingbox-facade-content').html(
+              urlify($('#sharingbox-facade-content').html())
+            ); }, 1000);
+        });
+        
+      });
+
+    </script>
+
+    <!-- script type="text/javascript">
+      Aloha.ready( function() {
+          Aloha.jQuery('#content').aloha();
+      });
+    </script-->
+
+  </body>
+</html>
