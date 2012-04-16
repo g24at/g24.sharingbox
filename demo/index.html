@@ -16,16 +16,18 @@
 
     <form id="sharingbox" action="" method="get" accept-charset="utf-8">
       <fieldset id="sharingbox-fieldset-features">
-          <label for="sharingbox-features-thread">Create a Thread</label>
-          <input type="checkbox" id="sharingbox-features-thread" name="sharingbox-features-thread"/>
-          <label for="sharingbox-features-event">Create a Event</label>
+          <label for="sharingbox-features-title">Create a Thread</label>
+          <input type="checkbox" id="sharingbox-features-title" name="sharingbox-features-title"/>
+          <label for="sharingbox-features-event">Create an Event</label>
           <input type="checkbox" id="sharingbox-features-event" name="sharingbox-features-event"/>
+          <label for="sharingbox-features-location">Create a Location</label>
+          <input type="checkbox" id="sharingbox-features-location" name="sharingbox-features-location"/>
       </fieldset>
 
-      <div>
+      <fieldset id="sharingbox-fieldset-title">
         <label for="sharingbox-title">Titel deines Beitrags</label>
         <input type="text" name="sharingbox-title" id="sharingbox-title" value="" placeholder="share some content with us!" />
-      </div>
+      </fieldset>
       <textarea name="sharingbox-text" id="sharingbox-text" rows="8" cols="40"><h1>lemme see</h1><p>nothing special</p></textarea>
 
       <div id="sharingbox-facade">
@@ -63,8 +65,19 @@
           <input type="text" name="sharingbox-organizer" id="sharingbox-organizer" value="" placeholder="Organizer"/>
         </div>
       </fieldset>
+
+      <fieldset id="sharingbox-fieldset-location">
+        <label for="sharingbox-location-name">Name der Location</label>
+        <input type="text" name="sharingbox-location-name" id="sharingbox-location-name" value="" placeholder="Name of the location" />
+        <label for="sharingbox-location-address">Address of the Location</label>
+        <input type="text" name="sharingbox-location-address" id="sharingbox-location-address" value="" placeholder="Address of the location" />
+      </fieldset>
+
     </form>
 
+    <style type="text/css" media="all">
+      #sharingbox-facade-content { display:none; } 
+    </style>
     <script type="text/javascript">
       function urlify(text) {
         /* based on:
@@ -94,6 +107,7 @@
 
       $(document).ready(function() {
         $('#sharingbox-facade-content').html($('#sharingbox-text').val());
+        $('#sharingbox-facade-content').show();
         $('#sharingbox-text').hide();
         $('#sharingbox-facade-bold').click(function(event){
           event.preventDefault();
@@ -115,6 +129,21 @@
               urlify($('#sharingbox-facade-content').html())
             ); }, 1000);
         });*/
+
+        $('#sharingbox-fieldset-title').hide();
+        $('#sharingbox-features-title').change(function(event){
+          $('#sharingbox-fieldset-title').toggle();
+        });
+        $('#sharingbox-fieldset-event').hide();
+        $('#sharingbox-features-event').change(function(event){
+          $('#sharingbox-fieldset-event').toggle();
+        });
+        $('#sharingbox-fieldset-location').hide();
+        $('#sharingbox-features-location').change(function(event){
+          $('#sharingbox-fieldset-location').toggle();
+        });
+       
+
         
       });
 
