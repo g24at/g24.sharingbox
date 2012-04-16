@@ -5,7 +5,7 @@
     <title>g24.at sharingbox</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="jquery.textchange.min.js" type="text/javascript" charset="utf-8"></script>
     <!--link rel="stylesheet" href="Aloha-Editor/src/css/aloha.css" type="text/css"-->
     <!--script src="Aloha-Editor/src/lib/aloha.js"
@@ -15,6 +15,13 @@
   <body>
 
     <form id="sharingbox" action="" method="get" accept-charset="utf-8">
+      <fieldset id="sharingbox-fieldset-features">
+          <label for="sharingbox-features-thread">Create a Thread</label>
+          <input type="checkbox" id="sharingbox-features-thread" name="sharingbox-features-thread"/>
+          <label for="sharingbox-features-event">Create a Event</label>
+          <input type="checkbox" id="sharingbox-features-event" name="sharingbox-features-event"/>
+      </fieldset>
+
       <div>
         <label for="sharingbox-title">Titel deines Beitrags</label>
         <input type="text" name="sharingbox-title" id="sharingbox-title" value="" placeholder="share some content with us!" />
@@ -29,6 +36,33 @@
           <p>somthin</p>
         </div>
       </div>
+
+      <fieldset id="sharingbox-fieldset-event">
+        <div id="sharingbox-widget-date-start">
+          <label for="sharingbox-date-start">Start Date</label>
+          <input type="date" id="sharingbox-date-start" name="sharingbox-date-start" value="" placeholder="YYYY-MM-DD HH:MM"/>
+        </div>
+        <div id="sharingbox-widget-date-end">
+          <label for="sharingbox-date-end">End Date</label>
+          <input type="date" name="sharingbox-date-end" id="sharingbox-date-end" value="" placeholder="YYYY-MM-DD HH:MM"/>
+        </div>
+        <div id="sharingbox-widget-whole-day">
+          <label for="sharingbox-whole-day">Whole Day</label>
+          <input type="checkbox" id="sharingbox-whole-day" name="sharingbox-whole-day"/>
+        </div>
+        <div id="sharingbox-widget-recurrence">
+          <label for="sharingbox-recurrence">Recurrence</label>
+          <textarea id="sharingbox-recurrence" name="sharingbox-recurrence" rows="3" cols="10"></textarea>
+        </div>
+        <div id="sharingbox-widget-location">
+          <label for="sharingbox-location">Location</label>
+          <input type="text" name="sharingbox-location" id="sharingbox-location" value="" placeholder="Location"/>
+        </div>
+        <div id="sharingbox-widget-organizer">
+          <label for="sharingbox-organizer">Organizer</label>
+          <input type="text" name="sharingbox-organizer" id="sharingbox-organizer" value="" placeholder="Organizer"/>
+        </div>
+      </fieldset>
     </form>
 
     <script type="text/javascript">
@@ -44,13 +78,16 @@
 
            ^(https?://[^\s]+)|[\s\n](https?://[^\s]+)
         */
-        var urlRegex = /(https?:\/\/[^\s"'<>]+)/g;
+        //var urlRegex = /[^"'](https?:\/\/[^\s<]+)/g;
+        var urlRegex = /[^"']?(https?:\/\/[^\s<]+)/g;
         return text.replace(urlRegex, function(url) {
+          if (url.substr(0,5) == 'https') { urlnoprot = url.substr(9); }
+          else { urlnoprot = url.substr(8); }
           var urlpart = url.substr(-4);
           if (urlpart === '.png' | urlpart === '.gif' | urlpart === '.jpg') {
             return '<img src="' + url + '"/>';
           } else {
-            return '<a href="' + url + '">' + url + '</a>';
+            return '<a href="' + url + '">' + urlnoprot + '</a>';
           }
         });
       }
@@ -69,7 +106,7 @@
           document.execCommand('italic',false,null);
         });
 
-        var timeout;
+        /*var timeout;
         $('#sharingbox-facade-content').bind('textchange', function () {
           clearTimeout(timeout);
           var self = this;
@@ -77,7 +114,7 @@
             $('#sharingbox-facade-content').html(
               urlify($('#sharingbox-facade-content').html())
             ); }, 1000);
-        });
+        });*/
         
       });
 
