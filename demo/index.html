@@ -5,8 +5,12 @@
     <title>g24.at sharingbox</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link href="http://jquerytools.org/media/css/dateinput/skin1.css" type="text/css" rel="stylesheet">
+
     <script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="jquery.textchange.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="http://cdn.jquerytools.org/1.2.7/form/jquery.tools.min.js"></script>
     <!--link rel="stylesheet" href="Aloha-Editor/src/css/aloha.css" type="text/css"-->
     <!--script src="Aloha-Editor/src/lib/aloha.js"
       data-aloha-plugins="common/format,common/highlighteditables,common/link"></script-->
@@ -135,6 +139,7 @@
           $('#sharingbox-fieldset-title').toggle();
         });
         $('#sharingbox-fieldset-event').hide();
+        $(":date").dateinput();
         $('#sharingbox-features-event').change(function(event){
           $('#sharingbox-fieldset-event').toggle();
         });
