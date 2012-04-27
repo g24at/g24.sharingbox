@@ -13,7 +13,7 @@
            ^(https?://[^\s]+)|[\s\n](https?://[^\s]+)
            */
         //var urlRegex = /[^"'](https?:\/\/[^\s<]+)/g;
-        var urlRegex = /[^"']?(https?:\/\/[^\s<]+)/g;
+        var urlRegex = /[^"'>]?(https?:\/\/[^\s<]+)/g;
         return text.replace(urlRegex, function(url) {
             if (url.substr(0,5) == 'https') { urlnoprot = url.substr(9); }
             else { urlnoprot = url.substr(8); }
@@ -41,15 +41,15 @@
             document.execCommand('italic',false,null);
         });
 
-        /*var timeout;
-          $('#sharingbox-facade-content').bind('textchange', function () {
-          clearTimeout(timeout);
-          var self = this;
-          timeout = setTimeout(function () {
-          $('#sharingbox-facade-content').html(
-          urlify($('#sharingbox-facade-content').html())
-          ); }, 1000);
-          });*/
+        var timeout;
+        $('#sharingbox-facade-content').bind('textchange', function () {
+            clearTimeout(timeout);
+            var self = this;
+            timeout = setTimeout(function () {
+                $('#sharingbox-facade-content').html(
+                    urlify($('#sharingbox-facade-content').html())
+                    ); }, 1000);
+        });
 
         $('#sharingbox-fieldset-title').hide();
         $('#sharingbox-features-title').change(function(event){
